@@ -68,75 +68,6 @@
 
     <!-- Font Awesome -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"> -->
-    
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-    <!-- JS -->
-    <script src="">
-        $(document).ready(function() {
-        // A data e hora de início são fixas e definidas aqui
-        const startDate = new Date('2024-08-25T16:00:00');
-
-        // A função do contador é executada a cada segundo
-        setInterval(function() {
-            const now = new Date();
-            
-            // Verifica se a data de início ainda não chegou
-            if (startDate > now) {
-                $('#time-counter').html("<div class='date-part'>A contagem ainda não começou.</div>");
-                return;
-            }
-
-            // Lógica de cálculo de tempo
-            let years = now.getFullYear() - startDate.getFullYear();
-            let months = now.getMonth() - startDate.getMonth();
-            let days = now.getDate() - startDate.getDate();
-            let hours = now.getHours() - startDate.getHours();
-            let minutes = now.getMinutes() - startDate.getMinutes();
-            let seconds = now.getSeconds() - startDate.getSeconds();
-
-            // Cascata de ajustes ("empréstimos")
-            if (seconds < 0) {
-                seconds += 60;
-                minutes--;
-            }
-            if (minutes < 0) {
-                minutes += 60;
-                hours--;
-            }
-            if (hours < 0) {
-                hours += 24;
-                days--;
-            }
-            if (days < 0) {
-                days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-                months--;
-            }
-            if (months < 0) {
-                months += 12;
-                years--;
-            }
-
-            // Formatação do tempo com zero à esquerda
-            const formattedHours = String(hours).padStart(2, '0');
-            const formattedMinutes = String(minutes).padStart(2, '0');
-            const formattedSeconds = String(seconds).padStart(2, '0');
-
-            // Lógica para singular/plural
-            const yearText = years === 1 ? 'ano' : 'anos';
-            const monthText = months === 1 ? 'mês' : 'meses';
-            const dayText = days === 1 ? 'dia' : 'dias';
-
-            // Exibe o resultado formatado no HTML
-            $('#time-counter').html(
-                `<div class="date-part">${years} ${yearText}, ${months} ${monthText}, ${days} ${dayText}</div>
-                  <div class="time-part">${formattedHours}hrs, ${formattedMinutes}min e ${formattedSeconds}s</div>`
-            );
-
-        }, 1000); // A função é chamada a cada 1000ms (1 segundo)
-      });
-    </script>
 </head>
 <body>
     <div class="col-12 text-center counter-container">
@@ -147,5 +78,76 @@
             Calculando...
         </div>
     </div>
+
+    <footer>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+        <!-- JS -->
+        <script src="">
+            $(document).ready(function() {
+            // A data e hora de início são fixas e definidas aqui
+            const startDate = new Date('2024-08-25T16:00:00');
+    
+            // A função do contador é executada a cada segundo
+            setInterval(function() {
+                const now = new Date();
+                
+                // Verifica se a data de início ainda não chegou
+                if (startDate > now) {
+                    $('#time-counter').html("<div class='date-part'>A contagem ainda não começou.</div>");
+                    return;
+                }
+    
+                // Lógica de cálculo de tempo
+                let years = now.getFullYear() - startDate.getFullYear();
+                let months = now.getMonth() - startDate.getMonth();
+                let days = now.getDate() - startDate.getDate();
+                let hours = now.getHours() - startDate.getHours();
+                let minutes = now.getMinutes() - startDate.getMinutes();
+                let seconds = now.getSeconds() - startDate.getSeconds();
+    
+                // Cascata de ajustes ("empréstimos")
+                if (seconds < 0) {
+                    seconds += 60;
+                    minutes--;
+                }
+                if (minutes < 0) {
+                    minutes += 60;
+                    hours--;
+                }
+                if (hours < 0) {
+                    hours += 24;
+                    days--;
+                }
+                if (days < 0) {
+                    days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+                    months--;
+                }
+                if (months < 0) {
+                    months += 12;
+                    years--;
+                }
+    
+                // Formatação do tempo com zero à esquerda
+                const formattedHours = String(hours).padStart(2, '0');
+                const formattedMinutes = String(minutes).padStart(2, '0');
+                const formattedSeconds = String(seconds).padStart(2, '0');
+    
+                // Lógica para singular/plural
+                const yearText = years === 1 ? 'ano' : 'anos';
+                const monthText = months === 1 ? 'mês' : 'meses';
+                const dayText = days === 1 ? 'dia' : 'dias';
+    
+                // Exibe o resultado formatado no HTML
+                $('#time-counter').html(
+                    `<div class="date-part">${years} ${yearText}, ${months} ${monthText}, ${days} ${dayText}</div>
+                      <div class="time-part">${formattedHours}hrs, ${formattedMinutes}min e ${formattedSeconds}s</div>`
+                );
+    
+            }, 1000); // A função é chamada a cada 1000ms (1 segundo)
+          });
+        </script>
+    </footer>
 </body>
 </html>
