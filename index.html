@@ -4,148 +4,335 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Presente da Bianca</title>
-    <link rel="icon" type="image/x-icon" href="config/favicon-heart.svg">
-    
-    <!-- Bootstrap -->
+    <link rel="icon" type="image/x-icon" href="config/favicon-heart-pixel.svg">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
     <style>
-      html, body {
-          height: 100%;
-          width: 100%;
-          overflow-x: hidden;
-          font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      }
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
 
-      body {
-          display: flex;
-          align-items: center; /* Centraliza verticalmente */
-          justify-content: center; /* Centraliza horizontalmente */
-          padding: 1rem; /* Adiciona um respiro nas laterais do corpo */
+        body {
+            display: flex;
+            align-items: center; /* Centraliza verticalmente */
+            justify-content: center; /* Centraliza horizontalmente */
+            padding: 2rem; /* Aumenta o respiro nas laterais do corpo */
 
-          /* --- NOVO FUNDO ANIMADO --- */
-          background-color: #f8f9fa; /* Cor de fundo caso o GIF não carregue */
-          /* background-image: url('https://i.gifer.com/5zoP.gif'); */
-          background-image: url('config/background-hearts-pequeno.gif');
-          background-repeat: repeat; /* Repete o GIF por toda a tela */
-          background-attachment: fixed; /* Mantém o fundo fixo */
-      }
+            /* --- FUNDO ANIMADO --- */
+            background: #d2f9ff;
+            background-image: url('config/background-hearts-pequeno.gif');
+            background-repeat: repeat;
+            background-attachment: fixed;
+        }
+        
+        /* Contêiner principal para centralizar tudo verticalmente */
+        .main-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20%;
+        }
 
-      .counter-container {
-          background-color: #ffffff;
-          width: 100%;
-          max-width: 500px; /* Define uma largura máxima */
-          padding: 24px; /* Padding menor, ideal para telas pequenas */
-          border-radius: 20px;
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
+        .counter-container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 5;
+        }
 
-      h1 {
-          font-size: 1.75rem; /* Título um pouco menor */
-      }
+        h1 {
+            font-size: 1.75rem;
+        }
 
-      .lead {
-          font-size: 1rem;
-          color: #6c757d;
-      }
+        .lead {
+            font-size: 1rem;
+            color: #6c757d;
+        }
 
-      #time-counter {
-          color: #343a40;
-      }
+        #time-counter {
+            color: #343a40;
+        }
 
-      .date-part {
-          font-size: 1.5rem; /* Fonte da data mais adequada ao mobile */
-          font-weight: bold;
-          line-height: 1.3;
-      }
+        .date-part {
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1.3;
+        }
 
-      .time-part {
-          font-size: 2.0rem; /* Fonte da hora um pouco menor */
-      }
+        .time-part {
+            font-size: 2.0rem;
+        }
+
+        /* --- REGRAS PARA AS POLAROIDS --- */
+        .polaroid-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: -20px;
+            padding-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .polaroid {
+            background: #fcfcfc;
+            padding: 1rem 1rem 0rem 1rem;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            margin: 15px;
+            position: relative;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .polaroid:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+            z-index: 10;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .polaroid .caption {
+            font-family: 'Permanent Marker', cursive;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #555;
+        }
+        
+        .polaroid.portrait {
+            width: 200px;
+            transform: rotate(-7deg);
+        }
+
+        .polaroid.portrait-2 {
+            width: 200px;
+            transform: rotate(-13deg);
+        }
+
+        .polaroid.landscape {
+            width: 260px;
+            transform: rotate(6deg);
+        }
+
+        .polaroid.landscape-2 {
+            width: 260px;
+            transform: rotate(10deg);
+        }
+
+        /* --- ESTILOS PARA A CARTA E O POP-UP --- */
+        #carta-container {
+            cursor: pointer;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        #carta-container img {
+            display: block;
+            width: 150px;
+            height: auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background-color: #fefefe;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .popup-content h2 {
+            font-family: 'Brush Script Std', cursive;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .popup-content p {
+            font-family: 'Brush Script Std', cursive;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #555;
+            white-space: pre-wrap;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #888;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .close-button:hover {
+            color: #333;
+        }
     </style>
 </head>
 <body>
-    <div class="col-12 text-center counter-container">
-        <h1 class="mb-3">Nossa história de Namoro</h1>
-        <p class="lead mb-4">Tempo decorrido desde que nossas vidas mudaram em 25 de Agosto de 2024 às 16:00h</p>
+    <div class="main-content">
+        <div class="col-12 text-center counter-container">
+            <h1 class="mb-3">Nossa história de Namoro</h1>
+            <p class="lead mb-4">Tempo decorrido desde que nossas vidas mudaram em 25 de Agosto de 2024 às 16:00h</p>
 
-        <div id="time-counter">
-            Calculando...
+            <div id="time-counter">
+                Calculando...
+            </div>
+        </div>
+        
+        <div class="polaroid-container">
+            <div class="polaroid portrait-2">
+                <img src="img/IMG-20241225-WA0011.jpg" alt="Descrição da foto">
+                <p class="caption">Nosso primeiro dia!</p>
+            </div>
+            
+            <div class="polaroid landscape">
+                <img src="img/IMG_20220701_234454347.jpg" alt="Descrição da foto">
+                <p class="caption">Aquele pôr do sol...</p>
+            </div>
+
+            <div class="polaroid portrait">
+                <img src="img/IMG-20241225-WA0011.jpg" alt="Descrição da foto">
+                <p class="caption">Sempre juntos</p>
+            </div>
+            
+            <div class="polaroid landscape-2">
+                <img src="img/IMG_20220701_234454347.jpg" alt="Descrição da foto">
+                <p class="caption">Nossa viagem</p>
+            </div>
+        </div>
+
+        <div id="carta-container">
+            <img src="config/carta.png" alt="Clique para abrir a carta">
+        </div>
+        
+        <div id="carta-popup" class="popup-overlay">
+            <div class="popup-content">
+                <button class="close-button">&times;</button>
+                <h2>Para a mulher mais maravilhosa desse mundo</h2>
+                <p>
+Minha querida Bianca,
+
+Estar com você é uma alegria imensa no meu coração. Ser seu namorado é uma missão linda e que me faz querer ser cada vez mais um homem configurado em Cristo, mais cavaleiro, mais româtico, mais forte, mais protetor. Isto pois, com a sua docilidade, sua feminilidade, seu carinho, seu amor, naturalmente, me permite a ter o meu papel de homem no relacionamento, e isto com essa harmonia nos leva à explorarmos o melhor de nós.
+
+Namorar-mos é isto, é um conhecer cada vez mais o outro e ajudar para que sejam exaltadas as coisas boas que cada um tem. Para que de mãos dadas, unidos em Cristo, levemos um ao outro ao céu.
+
+Feliz dia dos namorados! Com carinho,
+
+Seu João.</p>
+            </div>
         </div>
     </div>
 
     <footer>
-        <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    
-        <!-- JS -->
+
         <script>
             $(document).ready(function() {
-            // A data e hora de início são fixas e definidas aqui
-            const startDate = new Date('2024-08-25T16:00:00');
-    
-            // A função do contador é executada a cada segundo
-            setInterval(function() {
-                const now = new Date();
-                
-                // Verifica se a data de início ainda não chegou
-                if (startDate > now) {
-                    $('#time-counter').html("<div class='date-part'>A contagem ainda não começou.</div>");
-                    return;
-                }
-    
-                // Lógica de cálculo de tempo
-                let years = now.getFullYear() - startDate.getFullYear();
-                let months = now.getMonth() - startDate.getMonth();
-                let days = now.getDate() - startDate.getDate();
-                let hours = now.getHours() - startDate.getHours();
-                let minutes = now.getMinutes() - startDate.getMinutes();
-                let seconds = now.getSeconds() - startDate.getSeconds();
-    
-                // Cascata de ajustes ("empréstimos")
-                if (seconds < 0) {
-                    seconds += 60;
-                    minutes--;
-                }
-                if (minutes < 0) {
-                    minutes += 60;
-                    hours--;
-                }
-                if (hours < 0) {
-                    hours += 24;
-                    days--;
-                }
-                if (days < 0) {
-                    days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-                    months--;
-                }
-                if (months < 0) {
-                    months += 12;
-                    years--;
-                }
-    
-                // Formatação do tempo com zero à esquerda
-                const formattedHours = String(hours).padStart(2, '0');
-                const formattedMinutes = String(minutes).padStart(2, '0');
-                const formattedSeconds = String(seconds).padStart(2, '0');
-    
-                // Lógica para singular/plural
-                const yearText = years === 1 ? 'ano' : 'anos';
-                const monthText = months === 1 ? 'mês' : 'meses';
-                const dayText = days === 1 ? 'dia' : 'dias';
-    
-                // Exibe o resultado formatado no HTML
-                $('#time-counter').html(
-                    `<div class="date-part">${years} ${yearText}, ${months} ${monthText}, ${days} ${dayText}</div>
-                      <div class="time-part">${formattedHours}hrs, ${formattedMinutes}min e ${formattedSeconds}s</div>`
-                );
-    
-            }, 1000); // A função é chamada a cada 1000ms (1 segundo)
-          });
+                // --- CÓDIGO DO CONTADOR ---
+                const startDate = new Date('2024-08-25T16:00:00');
+
+                setInterval(function() {
+                    const now = new Date();
+                    
+                    if (startDate > now) {
+                        $('#time-counter').html("<div class='date-part'>A contagem ainda não começou.</div>");
+                        return;
+                    }
+
+                    let years = now.getFullYear() - startDate.getFullYear();
+                    let months = now.getMonth() - startDate.getMonth();
+                    let days = now.getDate() - startDate.getDate();
+                    let hours = now.getHours() - startDate.getHours();
+                    let minutes = now.getMinutes() - startDate.getMinutes();
+                    let seconds = now.getSeconds() - startDate.getSeconds();
+
+                    if (seconds < 0) { seconds += 60; minutes--; }
+                    if (minutes < 0) { minutes += 60; hours--; }
+                    if (hours < 0) { hours += 24; days--; }
+                    if (days < 0) {
+                        let lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                        days += lastMonth.getDate();
+                        months--;
+                    }
+                    if (months < 0) { months += 12; years--; }
+
+                    const formattedHours = String(hours).padStart(2, '0');
+                    const formattedMinutes = String(minutes).padStart(2, '0');
+                    const formattedSeconds = String(seconds).padStart(2, '0');
+
+                    const yearText = years === 1 ? 'ano' : 'anos';
+                    const monthText = months === 1 ? 'mês' : 'meses';
+                    const dayText = days === 1 ? 'dia' : 'dias';
+
+                    $('#time-counter').html(
+                        `<div class="date-part">${years} ${yearText}, ${months} ${monthText}, ${days} ${dayText}</div>
+                         <div class="time-part">${formattedHours}hrs, ${formattedMinutes}min e ${formattedSeconds}s</div>`
+                    );
+
+                }, 1000);
+
+                // --- JAVASCRIPT PARA O POP-UP DA CARTA ---
+                const cartaContainer = $('#carta-container');
+                const cartaPopup = $('#carta-popup');
+                const closeButton = $('.close-button');
+
+                // Abrir o pop-up
+                cartaContainer.on('click', function() {
+                    cartaPopup.css('display', 'flex');
+                });
+
+                // Fechar pelo botão
+                closeButton.on('click', function() {
+                    cartaPopup.css('display', 'none');
+                });
+
+                // Fechar clicando fora da caixa de conteúdo
+                cartaPopup.on('click', function(event) {
+                    if (event.target === this) {
+                        cartaPopup.css('display', 'none');
+                    }
+                });
+            });
         </script>
     </footer>
 </body>
